@@ -23,6 +23,26 @@ export const InfiniteMovingCards = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollerRef = useRef<HTMLUListElement>(null);
 
+  const setDirection = useCallback(() => {
+    if (containerRef.current) {
+      const animationDirection = direction === "left" ? "forwards" : "reverse";
+      containerRef.current.style.setProperty(
+        "--animation-direction",
+        animationDirection
+      );
+    }
+  }, [direction]);
+
+  const setSpeed = useCallback(() => {
+    if (containerRef.current) {
+      let duration = "40s"; // Default speed (normal)
+      if (speed === "fast") duration = "20s";
+      if (speed === "slow") duration = "80s";
+
+      containerRef.current.style.setProperty("--animation-duration", duration);
+    }
+  }, [speed]);
+
   // Fungsi untuk menambahkan animasi scrolling
   const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
@@ -39,27 +59,7 @@ export const InfiniteMovingCards = ({
       setDirection();
       setSpeed();
     }
-  }, [direction, speed]);
-
-  const setDirection = () => {
-    if (containerRef.current) {
-      const animationDirection = direction === "left" ? "forwards" : "reverse";
-      containerRef.current.style.setProperty(
-        "--animation-direction",
-        animationDirection
-      );
-    }
-  };
-
-  const setSpeed = () => {
-    if (containerRef.current) {
-      let duration = "40s"; // Default speed (normal)
-      if (speed === "fast") duration = "20s";
-      if (speed === "slow") duration = "80s";
-
-      containerRef.current.style.setProperty("--animation-duration", duration);
-    }
-  };
+  }, [setDirection, setSpeed]);
 
   useEffect(() => {
     addAnimation();

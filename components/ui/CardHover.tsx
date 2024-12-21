@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { FaInstagram } from "react-icons/fa";
+import Image from "next/image";
 
 export const HoverEffect = ({
   items,
@@ -114,11 +115,14 @@ export const Card = ({
       {/* Layout diubah dengan breakpoint */}
       <div className="flex flex-col lg:flex-row lg:items-center space-y-4 lg:space-y-0 lg:space-x-4">
         <div className="w-full lg:w-48 lg:flex-shrink-0 relative mt-4">
-          <img
+          <Image
             src={imageSrc}
             alt="Member"
-            loading="lazy"
+            layout="responsive" // Menggunakan layout responsif
+            width={300} // Atur lebar default
+            height={256} // Atur tinggi default
             className="w-full h-[300px] md:h-[256px] object-cover object-center rounded-2xl"
+            priority={true} // Menyebabkan gambar prioritas dimuat
           />
         </div>
         <div className="w-full text-center lg:text-left">
