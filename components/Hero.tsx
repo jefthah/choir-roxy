@@ -34,19 +34,13 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <motion.section
+    <section
       id="hero-section"
       ref={sectionRef}
       className="h-screen w-full flex flex-col justify-center items-center relative overflow-hidden"
-      initial="hidden"
-      animate={isHeroVisible ? "visible" : "hidden"}
-      variants={fadeInVariants} // Gunakan varian animasi
     >
-      {/* Floating Navbar */}
-      <motion.div
-        variants={fadeInVariants}
-        className="fixed top-5 left-0 w-full z-[10]"
-      >
+      {/* Floating Navbar: No motion effect */}
+      <div className="fixed top-5 left-0 w-full z-[10]">
         <FloatingNav
           navItems={[
             { name: "Home", link: "/", icon: <span>🏠</span> },
@@ -54,11 +48,13 @@ const Hero: React.FC = () => {
             { name: "Contact", link: "/contact", icon: <span>✉️</span> },
           ]}
         />
-      </motion.div>
+      </div>
 
-      {/* Sparkles Preview */}
+      {/* Sparkles Preview with motion effect */}
       <motion.div
         variants={fadeInVariants}
+        initial="hidden"
+        animate={isHeroVisible ? "visible" : "hidden"}
         className="flex justify-center relative"
       >
         <SparklesPreview />
@@ -68,7 +64,7 @@ const Hero: React.FC = () => {
       <div className="absolute bottom-0 w-full">
         <MarqueeText />
       </div>
-    </motion.section>
+    </section>
   );
 };
 

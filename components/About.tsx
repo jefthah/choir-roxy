@@ -79,7 +79,9 @@ const About: React.FC = () => {
       </div>
 
       {/* Layout Desktop */}
-      <div className="hidden md:flex flex-row items-center gap-12 max-w-[90%] mx-auto md:mt-16 ml-40"> {/* Tambahkan md:mt-16 untuk geser */}
+      <div className="hidden md:flex flex-row items-center gap-12 max-w-[90%] mx-auto md:mt-40 ml-40 ">
+        {" "}
+        {/* Tambahkan md:mt-16 untuk geser */}
         {/* Bagian Teks */}
         <div className="flex-1 text-left">
           <h2 className="text-5xl font-extrabold mb-8">About Us</h2>
@@ -90,16 +92,25 @@ const About: React.FC = () => {
             and teachings of Christ.
           </p>
         </div>
-
         {/* Bagian Gambar */}
         <div className="flex-1">
-          <div className="rounded-lg overflow-hidden shadow-lg">
+          <div
+            className="rounded-lg overflow-hidden shadow-lg "
+            style={{
+              height: "500px", // Pastikan tinggi pembungkus tetap
+              width: "100%", // Pastikan lebar pembungkus penuh
+            }}
+          >
             <Image
-              src="/paralax/p1.jpeg"
+              src="/paralax/choir.jpg"
               alt="Pelayanan Gereja"
-              width={600}
-              height={400}
-              className="object-cover"
+              layout="responsive" // Mengatur gambar agar fleksibel mengisi pembungkus
+              width={600} // Lebar gambar
+              height={500} // Tinggi gambar sesuai proporsi pembungkus
+              className="object-cover" // Mengisi seluruh area pembungkus
+              style={{
+                objectPosition: "top center", // Geser gambar ke atas secara horizontal dan vertikal
+              }}
             />
           </div>
         </div>
@@ -107,16 +118,14 @@ const About: React.FC = () => {
 
       {/* Infinite Moving Cards */}
       <div className="mt-8 w-full md:mt-16">
-  <InfiniteMovingCards
-    items={items}
-    direction="left"
-    speed="normal"
-    pauseOnHover={true}
-    className="gap-2 sm:gap-4 md:gap-8" // Perbaiki gap sesuai kebutuhan
-  />
-</div>
-
-
+        <InfiniteMovingCards
+          items={items}
+          direction="left"
+          speed="normal"
+          pauseOnHover={true}
+          className="gap-2 sm:gap-4 md:gap-8" // Perbaiki gap sesuai kebutuhan
+        />
+      </div>
     </motion.section>
   );
 };
