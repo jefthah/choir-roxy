@@ -63,7 +63,7 @@ const About: React.FC = () => {
         <h2 className="text-5xl font-extrabold text-center">About Us</h2>
         <div className="w-[90%] rounded-lg overflow-hidden">
           <Image
-            src="/paralax/p1.jpeg"
+            src="/paralax/member.jpeg"
             alt="Pelayanan Gereja"
             width={600}
             height={400}
