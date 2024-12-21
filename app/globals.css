@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Efek Typewriter */
+@keyframes typewriter {
+  from {
+    width: 0; /* Mulai dari lebar 0 */
+  }
+  to {
+    width: 100%; /* Sampai 100% elemen */
+  }
+}
+
+.typewriter {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap; /* Hindari teks terpecah ke baris baru */
+  max-width: 100%; /* Pastikan sesuai ukuran elemen */
+  animation: typewriter 2s steps(40, end) forwards; /* Durasi & steps lebih halus */
+}
+
+/* Efek Blink */
+.blinking {
+  display: inline-block;
+  animation: blink 1s step-end infinite; /* Tetap berkedip */
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
