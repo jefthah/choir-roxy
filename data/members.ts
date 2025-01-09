@@ -79,7 +79,7 @@ export const memberItems = [
       description:
         "Hi, I'm Alice Tanudjaja. I am someone who always strives to look beautiful and behave well. When I sing, I try to connect with the atmosphere. I am passionate, cheerful, and quite accomplished. That's a little about me. I'm Alice, and it's nice to meet you all!",
       instagramLink: "https://www.instagram.com/alice_t.j/",
-      imageSrc: "/paralax/members/alice.png",
+      imageSrc: "/paralax/members/alice.jpg",
     },
     {
       title: "Nickson",
@@ -87,7 +87,7 @@ export const memberItems = [
       description:
         "Hi, I'm Nickson Yehezkiel, but my friends call me Nickson. I'm a bit quirky and often think of things that others don't. However, I can be very cheerful and upbeat. I'm kind to my friends and others, though I find it quite difficult to interact with new people. Despite that, I put in a lot of effort. Nice to meet you all! I'm Nickson.",
       instagramLink: "https://www.instagram.com/nicks0nnn/",
-      imageSrc: "/paralax/members/nick.png",
+      imageSrc: "/paralax/members/nickson.jpg",
     },
     {
       title: "Noel",

@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 
 export const InfiniteMovingCards = ({
   items,
@@ -12,8 +13,8 @@ export const InfiniteMovingCards = ({
 }: {
   items: {
     quote: string;
-    name: string;
     title: string;
+    image: string; // Tambahan properti untuk gambar
   }[];
   direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
@@ -43,7 +44,6 @@ export const InfiniteMovingCards = ({
     }
   }, [speed]);
 
-  // Fungsi untuk menambahkan animasi scrolling
   const addAnimation = useCallback(() => {
     if (containerRef.current && scrollerRef.current) {
       const scrollerContent = Array.from(scrollerRef.current.children);
@@ -69,34 +69,40 @@ export const InfiniteMovingCards = ({
     <div
       ref={containerRef}
       className={cn(
-        "scroller relative z-20 w-full overflow-hidden h-[350px]", // Height tetap untuk pembungkus
+        "scroller relative z-20 w-full overflow-hidden h-[450px]", // Tinggi diperbesar
         className
       )}
     >
       <ul
         ref={scrollerRef}
         className={cn(
-          "flex w-max justify-start shrink-0 gap-6 sm:gap-8 md:gap-12 py-4 flex-nowrap animate-scroll", // Gap dinamis berdasarkan ukuran layar
-          pauseOnHover && "hover:[animation-play-state:paused]" // Pause saat hover
+          "flex w-max justify-start shrink-0 gap-8 sm:gap-12 md:gap-16 py-6 flex-nowrap animate-scroll", // Gap lebih besar
+          pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
         {items.map((item, idx) => (
           <li
             key={idx}
-            className="min-w-[250px] sm:min-w-[350px] md:min-w-[500px] max-w-full relative rounded-2xl border border-slate-700 px-8 sm:px-12 py-6 sm:py-8" // Sesuaikan ukuran padding
+            className="min-w-[300px] sm:min-w-[400px] md:min-w-[600px] max-w-full relative rounded-lg border border-slate-700 flex items-center px-8 sm:px-12 py-6 sm:py-8 gap-6" // Gambar dan teks lebih besar
           >
-            <blockquote>
-              <span className="relative z-20 text-sm sm:text-base md:text-lg leading-[1.8] text-gray-100 font-normal">
+            {/* Gambar dengan rounded kecil */}
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-60 md:h-60 flex-shrink-0 overflow-hidden rounded-lg"> {/* Tambahkan rounded-lg */}
+              <Image
+                src={item.image}
+                alt={item.title}
+                width={300}
+                height={300}
+                className="object-cover w-full h-full rounded-lg" // Tambahkan rounded kecil
+              />
+            </div>
+            {/* Teks */}
+            <blockquote className="flex-1">
+              <span className="relative z-20 text-base sm:text-lg md:text-xl leading-[1.8] text-gray-100 font-normal">
                 {item.quote}
               </span>
-              <div className="relative z-20 mt-4 sm:mt-6 flex flex-row items-center">
-                <span className="flex flex-col gap-1">
-                  <span className="text-sm sm:text-base md:text-lg leading-[1.8] text-gray-400 font-normal">
-                    {item.name}
-                  </span>
-                  <span className="text-sm sm:text-base md:text-lg leading-[1.8] text-gray-400 font-normal">
-                    {item.title}
-                  </span>
+              <div className="relative z-20 mt-4 sm:mt-6">
+                <span className="text-sm sm:text-base md:text-lg leading-[1.8] text-gray-400 font-bold">
+                  {item.title}
                 </span>
               </div>
             </blockquote>

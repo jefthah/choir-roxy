@@ -33,19 +33,29 @@ const About: React.FC = () => {
   // Data untuk InfiniteMovingCards
   const items = [
     {
-      quote: "Singing praises brings us closer to God.",
-      name: "John Doe",
-      title: "Choir Member",
+      quote: "Celebrating the joy of Christmas with faith and love.",
+      title: "Natal",
+      image: "/paralax/natal.jpeg", // Ganti dengan path gambar
     },
     {
-      quote: "Through music, we find hope and faith.",
-      name: "Jane Smith",
-      title: "Outreach Coordinator",
+      quote: "A peaceful night to reflect and give thanks.",
+      title: "Malam Natal",
+      image: "/paralax/malam-natal.jpeg", // Ganti dengan path gambar
     },
     {
-      quote: "Every note we sing is a prayer.",
-      name: "Emily Johnson",
-      title: "Conductor",
+      quote: "Spreading the Christmas spirit with community rallies.",
+      title: "Rally Natal",
+      image: "/paralax/rally-natal.jpeg", // Ganti dengan path gambar
+    },
+    {
+      quote: "A grand celebration at GBK to honor His blessings.",
+      title: "Natal GBK",
+      image: "/paralax/natal-gbk.jpeg", // Ganti dengan path gambar
+    },
+    {
+      quote: "Casual conversations to strengthen bonds and faith.",
+      title: "Ngerumpi",
+      image: "/paralax/ngerumpi.jpeg", // Ganti dengan path gambar
     },
   ];
 

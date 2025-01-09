@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import OurMember from "@/components/OurMember";
 import Join from "@/components/Join"; // Import komponen Join
+import Footer from "@/components/Footer";
 
 const Page: React.FC = () => {
   const sections = useRef<HTMLElement[]>([]);
@@ -55,6 +56,9 @@ const Page: React.FC = () => {
 
       {/* Join Section */}
       <Join />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 };

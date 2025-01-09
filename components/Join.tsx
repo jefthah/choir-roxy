@@ -7,7 +7,13 @@ import { SparklesCore } from "@/components/ui/sparkles";
 const Join: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [showForm, setShowForm] = useState(false);
-  const [showSuccessAlert, setShowSuccessAlert] = useState(false); // State alert sukses
+  const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+  const [formErrors, setFormErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    reason: "",
+  });
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,10 +24,41 @@ const Join: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Reset previous errors
+    const errors = { name: "", email: "", phone: "", reason: "" };
+    let hasError = false;
+
+    // Validate each field
+    if (!formData.name) {
+      errors.name = "Name is required.";
+      hasError = true;
+    }
+    if (!formData.email) {
+      errors.email = "Email is required.";
+      hasError = true;
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      errors.email = "Invalid email format.";
+      hasError = true;
+    }
+    if (!formData.phone) {
+      errors.phone = "Phone number is required.";
+      hasError = true;
+    }
+    if (!formData.reason) {
+      errors.reason = "Reason to join is required.";
+      hasError = true;
+    }
+
+    setFormErrors(errors);
+
+    // Stop submission if there are errors
+    if (hasError) return;
+
+    // If no errors, send email
     emailjs
       .send(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!, // Service ID dari .env
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!, // Template ID dari .env
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
           from_name: formData.name,
           message: formData.reason,
@@ -29,11 +66,12 @@ const Join: React.FC = () => {
           to_name: "Jefta",
           reply_to: formData.email,
         },
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY! // Public Key dari .env
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
       .then(() => {
-        setShowSuccessAlert(true); // Menampilkan alert sukses
+        setShowSuccessAlert(true);
         setFormData({ name: "", email: "", phone: "", reason: "" });
+        setFormErrors({ name: "", email: "", phone: "", reason: "" }); // Clear errors after submission
       })
       .catch((error) => {
         console.error("Failed to send email:", error);
@@ -65,9 +103,7 @@ const Join: React.FC = () => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
             <h2 className="text-2xl font-bold text-green-600 mb-2">Success!</h2>
-            <p className="text-gray-700 mb-4">
-              Kami akan segera menghubungimu.
-            </p>
+            <p className="text-gray-700 mb-4">We will contact you soon.</p>
             <button
               onClick={() => setShowSuccessAlert(false)}
               className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none transition duration-300"
@@ -125,25 +161,9 @@ const Join: React.FC = () => {
               exit={{ opacity: 0, y: 50 }}
               transition={{ duration: 0.5 }}
             >
-              {/* Teks Serve with Excellence */}
-              <motion.div
-                className="md:w-1/2 flex flex-col items-start justify-center text-left"
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h2 className="text-4xl font-bold leading-tight">
-                  Serve with Excellence
-                </h2>
-                <p className="text-lg text-gray-300 mt-4 leading-relaxed">
-                  Let&apos;s grow and serve together to bring out the best in
-                  our talents!
-                </p>
-              </motion.div>
-
               {/* Form Join Us */}
               <motion.div
-                className="md:w-1/2 relative p-4 md:p-6 rounded-[20px] border border-[#18212F] hover:border-purple-500 hover:shadow-[0_0_15px_4px_rgba(128,90,213,0.6)] max-h-[90vh] overflow-y-auto" // Tinggi form lebih fleksibel
+                className="w-full md:w-1/2 relative p-4 md:p-6 rounded-[20px] border border-[#18212F] hover:border-purple-500 hover:shadow-[0_0_15px_4px_rgba(128,90,213,0.6)] max-h-[90vh] overflow-y-auto"
                 style={{
                   background: "rgba(0, 0, 0, 0.3)",
                   backdropFilter: "blur(10px)",
@@ -154,13 +174,11 @@ const Join: React.FC = () => {
                 </h2>
                 <form
                   onSubmit={handleSubmit}
-                  className="space-y-3 md:space-y-5" // Perkecil jarak antar elemen
+                  className="space-y-3 md:space-y-5"
                 >
                   {/* Input Fields */}
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">
-                      Name
-                    </label>
+                    <label className="block text-white mb-1 md:mb-2">Name</label>
                     <input
                       type="text"
                       placeholder="Enter your name"
@@ -170,11 +188,12 @@ const Join: React.FC = () => {
                       }
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
+                    {formErrors.name && (
+                      <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">
-                      Email
-                    </label>
+                    <label className="block text-white mb-1 md:mb-2">Email</label>
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -184,6 +203,9 @@ const Join: React.FC = () => {
                       }
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
+                    {formErrors.email && (
+                      <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-white mb-1 md:mb-2">
@@ -198,11 +220,12 @@ const Join: React.FC = () => {
                       }
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
+                    {formErrors.phone && (
+                      <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
+                    )}
                   </div>
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">
-                      Reason to Join
-                    </label>
+                    <label className="block text-white mb-1 md:mb-2">Reason</label>
                     <textarea
                       rows={3}
                       placeholder="Why do you want to join?"
@@ -212,6 +235,9 @@ const Join: React.FC = () => {
                       }
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     ></textarea>
+                    {formErrors.reason && (
+                      <p className="text-red-500 text-sm mt-1">{formErrors.reason}</p>
+                    )}
                   </div>
                   <button
                     type="submit"
