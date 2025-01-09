@@ -60,18 +60,17 @@ const Join: React.FC = () => {
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
         {
-          from_name: formData.name,
-          message: formData.reason,
-          phone: formData.phone,
-          to_name: "Jefta",
-          reply_to: formData.email,
+          from_name: formData.name, // Harus cocok dengan {{from_name}}
+          message: formData.reason, // Harus cocok dengan {{message}}
+          phone: formData.phone, // Harus cocok dengan {{phone}}
+          to_name: "Jefta", // Harus cocok dengan {{to_name}}
+          reply_to: formData.email, // Untuk membalas email
         },
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
       )
       .then(() => {
         setShowSuccessAlert(true);
         setFormData({ name: "", email: "", phone: "", reason: "" });
-        setFormErrors({ name: "", email: "", phone: "", reason: "" }); // Clear errors after submission
       })
       .catch((error) => {
         console.error("Failed to send email:", error);
@@ -178,7 +177,9 @@ const Join: React.FC = () => {
                 >
                   {/* Input Fields */}
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">Name</label>
+                    <label className="block text-white mb-1 md:mb-2">
+                      Name
+                    </label>
                     <input
                       type="text"
                       placeholder="Enter your name"
@@ -189,11 +190,15 @@ const Join: React.FC = () => {
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
                     {formErrors.name && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.name}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.name}
+                      </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">Email</label>
+                    <label className="block text-white mb-1 md:mb-2">
+                      Email
+                    </label>
                     <input
                       type="email"
                       placeholder="Enter your email"
@@ -204,7 +209,9 @@ const Join: React.FC = () => {
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
                     {formErrors.email && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.email}
+                      </p>
                     )}
                   </div>
                   <div>
@@ -221,11 +228,15 @@ const Join: React.FC = () => {
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     />
                     {formErrors.phone && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.phone}
+                      </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-white mb-1 md:mb-2">Reason</label>
+                    <label className="block text-white mb-1 md:mb-2">
+                      Reason
+                    </label>
                     <textarea
                       rows={3}
                       placeholder="Why do you want to join?"
@@ -236,7 +247,9 @@ const Join: React.FC = () => {
                       className="w-full px-2 py-1 md:px-3 md:py-2 bg-transparent border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-purple-500 focus:ring-2 focus:ring-purple-500"
                     ></textarea>
                     {formErrors.reason && (
-                      <p className="text-red-500 text-sm mt-1">{formErrors.reason}</p>
+                      <p className="text-red-500 text-sm mt-1">
+                        {formErrors.reason}
+                      </p>
                     )}
                   </div>
                   <button
